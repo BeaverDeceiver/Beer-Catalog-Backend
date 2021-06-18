@@ -1,6 +1,6 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { map } from 'rxjs/operators';
-import getBeerListUrl, { getSingleBeerURL } from '../utils/URL';
+import { getBeerListURL, getSingleBeerURL } from '../utils/URL';
 import { IBeerQueryParams } from '../interfaces/beerList-query-params.interface';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class BeerService {
 
   async getBeerList(query: IBeerQueryParams) {
     return this.http
-      .get(getBeerListUrl(query).toString())
+      .get(getBeerListURL(query).toString())
       .pipe(map((response) => response.data));
   }
 

@@ -1,4 +1,4 @@
-export default function getURL(params = {}) {
+export function getBeerListURL(params = {}) {
   // cant use url for query generation as is due to the api specs
   const url = new URL('https://api.punkapi.com/v2/beers');
   for (const [key, value] of Object.entries(params)) {
