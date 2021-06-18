@@ -11,12 +11,12 @@ export class AuthController {
   ) {}
 
   @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
+  @Post('auth/signin')
   async login(@Request() req) {
     return this.authService.login(req.user, req.body.stayLoggedIn);
   }
 
-  @Post('auth/register')
+  @Post('auth/signup')
   async signUp(@Body() body) {
     return this.registrationService.signUp(body);
   }
