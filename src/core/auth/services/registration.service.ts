@@ -35,7 +35,7 @@ export class RegistrationService {
       );
 
       if (existingLogin) {
-        throw new BadRequestException('Such login is already used');
+        throw new BadRequestException('Such email is already used');
       }
 
       if (
