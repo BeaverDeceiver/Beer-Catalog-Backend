@@ -2,7 +2,7 @@ export interface IBeerQueryParams {
   beer_name?: string;
   page?: number;
   per_page?: number;
-  abv?: number;
-  ibu?: number;
-  ebc?: number;
+  abv_gt?: number;
+  ibu_gt?: number;
+  ebc_gt?: number;
 }

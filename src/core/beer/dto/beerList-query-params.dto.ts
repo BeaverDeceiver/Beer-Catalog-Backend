@@ -18,16 +18,16 @@ export class BeerQueryParamsDto {
 
   @IsOptional()
   @IsNumber()
-  @Transform((abv) => Number(abv))
-  abv?: number;
+  @Transform((abv_gt) => Number(abv_gt))
+  abv_gt?: number;
 
   @IsOptional()
   @IsNumber()
-  @Transform((ibu) => Number(ibu))
-  ibu?: number;
+  @Transform((ibu_gt) => Number(ibu_gt))
+  ibu_gt?: number;
 
   @IsOptional()
   @IsNumber()
-  @Transform((ebc) => Number(ebc))
-  ebc?: number;
+  @Transform((ebc_gt) => Number(ebc_gt))
+  ebc_gt?: number;
 }
