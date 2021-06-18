@@ -14,7 +14,7 @@ export class UpdateUserDto {
   email: string;
 
   @IsDateString()
-  birthday: Date;
+  dob: Date;
 
   @IsString()
   sex: string;

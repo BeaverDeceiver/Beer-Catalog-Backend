@@ -18,7 +18,7 @@ export class UserInfo {
   user: User;
 
   @Column({ nullable: true })
-  birthday: Date;
+  dob: Date;
 
   @Column({ name: 'avatar_url', nullable: true })
   avatar_url: number;
