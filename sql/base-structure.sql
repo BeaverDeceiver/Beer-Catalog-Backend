@@ -4,8 +4,8 @@ CREATE TABLE "users" (
 	"id" SERIAL PRIMARY KEY,
 	"email" VARCHAR(255) NOT NULL,
 	"password" VARCHAR(100) NOT NULL,
-	"firstName" VARCHAR(100) NOT NULL,
-	"lastName" VARCHAR(100) NOT NULL,
+	"first_name" VARCHAR(100) NOT NULL,
+	"last_name" VARCHAR(100) NOT NULL,
 	"deleted_at" TIMESTAMP
 );
 
@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS "users_info";
 CREATE TABLE "users_info" (
 	"id" SERIAL PRIMARY KEY,
 	"user_id" INTEGER NOT NULL UNIQUE,
-	"birthday" DATE,
+	"dob" DATE,
 	"avatar_url" VARCHAR(255),
 	"deleted_at" TIMESTAMP
 );

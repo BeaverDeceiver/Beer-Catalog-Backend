@@ -18,11 +18,13 @@ INSERT INTO "endpoints_roles"(endpoint_id, role_id, permission_mask) VALUES
 
 /* ADMIN */
 
-(	1	,	1   ,   1 + 2 + 4 + 8	),	/* / */
-(	2	,	1   ,   1 + 2 + 4 + 8	),	/* /users/\d */
+(	1	,	1   ,   1 + 2 + 4 + 8	),	
+(	2	,	1   ,   1 + 2 + 4 + 8	),	
+(	3	,	1   ,   1 + 2 + 4 + 8	),	
 
 
 /* USER */
 
 (	1	,	1   ,   1 ),
 (	2	,	2   ,   1 );
+(	3	,	1   ,   1 + 2 + 4),	
