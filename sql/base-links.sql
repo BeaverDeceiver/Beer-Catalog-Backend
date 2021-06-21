@@ -31,3 +31,11 @@ ALTER TABLE "endpoints_roles"
         ON DELETE RESTRICT
         ON UPDATE RESTRICT
 ;
+
+ALTER TABLE "favorites" 
+
+    ADD CONSTRAINT "FK_favorites_to_users" FOREIGN KEY("user_id")
+        REFERENCES "users"("id")
+        ON DELETE RESTRICT
+        ON UPDATE RESTRICT
+;

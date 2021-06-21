@@ -53,3 +53,12 @@ CREATE TABLE "endpoints_roles" (
 	"permission_mask" INTEGER NOT NULL,
 	"deleted_at" TIMESTAMP
 );
+
+DROP TABLE IF EXISTS "favorites";
+
+CREATE TABLE "favorites" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INTEGER,
+	"beer_id" INTEGER,
+	"deleted_at" TIMESTAMP
+)
