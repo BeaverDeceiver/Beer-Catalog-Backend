@@ -20,6 +20,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         'Token has id of removed or non-existent user.',
       );
     }
-    return { id: payload.id, login: payload.login };
+    return { id: payload.id, email: payload.email };
   }
 }

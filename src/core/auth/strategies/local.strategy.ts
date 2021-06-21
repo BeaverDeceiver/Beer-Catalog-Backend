@@ -7,15 +7,15 @@ import { AuthService } from '../services/auth.service';
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private authService: AuthService) {
     super({
-      usernameField: 'login',
+      usernameField: 'email',
       passwordField: 'password',
     });
   }
 
-  async validate(login: string, password: string) {
-    const user = await this.authService.validateUser(login, password);
+  async validate(email: string, password: string) {
+    const user = await this.authService.validateUser(email, password);
     if (!user) {
-      throw new UnauthorizedException('Incorrect login or password');
+      throw new UnauthorizedException('Incorrect email or password');
     }
     return user;
   }
