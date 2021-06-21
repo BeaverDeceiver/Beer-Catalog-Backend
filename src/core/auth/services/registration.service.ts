@@ -7,7 +7,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DEFAULT_ROLE } from 'src/common/constants/roles.constants';
 import { User, UserInfo } from 'src/core/users/entities';
 import { RolesService } from 'src/core/users/services/roles.service';
-import { UsersService } from 'src/core/users/services/users.service';
 import { Connection, Repository } from 'typeorm';
 import { RegisterUserDto } from '../dto';
 
@@ -18,7 +17,6 @@ export class RegistrationService {
     @InjectRepository(UserInfo)
     private userInfoRepository: Repository<UserInfo>,
     private rolesService: RolesService,
-    private usersService: UsersService,
     private connection: Connection,
   ) {}
 
@@ -29,28 +27,20 @@ export class RegistrationService {
     await queryRunner.startTransaction();
 
     try {
-      const existingLogin = await this.userRepository.findOne(
+      const existingEmail = await this.userRepository.findOne(
         { email: data.email },
         { select: ['email'] },
       );
 
-      if (existingLogin) {
-        throw new BadRequestException('Such email is already used');
-      }
-
-      if (
-        !(await this.usersService.isUniqueEmail(
-          data.email,
-          0,
-          queryRunner.manager,
-        ))
-      ) {
+      if (existingEmail) {
         throw new BadRequestException('Such email is already used');
       }
 
       const newUser = this.userRepository.create({
         email: data.email,
         password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
       });
       await queryRunner.manager.save(newUser);
 
