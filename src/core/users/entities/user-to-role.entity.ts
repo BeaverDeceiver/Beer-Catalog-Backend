@@ -21,6 +21,6 @@ export class UserToRole {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 
-  @DeleteDateColumn({ name: 'deleted_date', type: 'timestamp', nullable: true })
-  deletedDate: Date;
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
+  deletedAt: Date;
 }

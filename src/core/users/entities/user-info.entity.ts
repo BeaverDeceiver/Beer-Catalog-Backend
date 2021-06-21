@@ -23,6 +23,6 @@ export class UserInfo {
   @Column({ name: 'avatar_url', nullable: true })
   avatar_url: number;
 
-  @DeleteDateColumn({ name: 'deleted_date', type: 'timestamp', nullable: true })
-  deletedDate: Date;
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
+  deletedAt: Date;
 }

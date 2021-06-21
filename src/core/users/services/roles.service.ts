@@ -61,7 +61,7 @@ export class RolesService {
   }
 
   readAllOptions(qb: WhereExpression, options: IRolesOptions) {
-    qb.andWhere('(roles.deletedDate IS NULL)');
+    qb.andWhere('(roles.deleted_at IS NULL)');
     if (options.name) {
       qb.andWhere('roles.name = :name', {
         name: options.name,

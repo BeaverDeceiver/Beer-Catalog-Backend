@@ -25,6 +25,6 @@ export class EndpointToRole {
   @JoinColumn({ name: 'endpoint_id', referencedColumnName: 'id' })
   endpoint: Endpoint;
 
-  @DeleteDateColumn({ name: 'deleted_date', type: 'timestamp', nullable: true })
-  deletedDate: Date;
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
+  deletedAt: Date;
 }

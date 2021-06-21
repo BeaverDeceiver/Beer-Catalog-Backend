@@ -18,6 +18,6 @@ export class Endpoint {
   @OneToMany(() => EndpointToRole, (endpointToRole) => endpointToRole.endpoint)
   endpointToRoles: EndpointToRole[];
 
-  @DeleteDateColumn({ name: 'deleted_date', type: 'timestamp', nullable: true })
-  deletedDate: Date;
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
+  deletedAt: Date;
 }
