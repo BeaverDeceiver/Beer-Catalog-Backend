@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { RolesService } from '../../core/users/services/roles.service';
 import { UsersService } from '../../core/users/services/users.service';
 
-type Payload = { id: string; login: string };
+type Payload = { id: string; email: string };
 
 const getInt = (methodName: string) => {
   switch (methodName) {
