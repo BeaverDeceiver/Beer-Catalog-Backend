@@ -5,12 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  Connection,
-  EntityManager,
-  FindManyOptions,
-  Repository,
-} from 'typeorm';
+import { Connection, FindManyOptions, Repository } from 'typeorm';
 import { UserInfo } from '../entities/user-info.entity';
 import { User } from '../entities/user.entity';
 import { IUser } from '../interfaces';
@@ -83,20 +78,5 @@ export class UsersService {
 
   async get(options: FindManyOptions<User>) {
     return await this.userRepository.find(options);
-  }
-
-  async isUniqueEmail(
-    email: string,
-    userId: number,
-    transactionManager: EntityManager,
-  ): Promise<boolean> {
-    const user = await transactionManager.findOne(User, {
-      where: { email: email },
-    });
-    if (user && userId != user.id) {
-      return false;
-    }
-
-    return true;
   }
 }
