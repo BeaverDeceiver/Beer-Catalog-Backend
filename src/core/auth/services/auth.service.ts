@@ -38,7 +38,6 @@ export class AuthService {
 
     const payload = {
       id: user.id,
-      email: user.email,
       stayLoggedIn: stayLoggedIn,
     };
 
@@ -75,7 +74,6 @@ export class AuthService {
 
       const newPayload = {
         id: payload.id,
-        email: payload.email,
         stayLoggedIn: payload.stayLoggedIn,
       };
 
