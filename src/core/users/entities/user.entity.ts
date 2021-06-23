@@ -35,7 +35,7 @@ export class User {
   @OneToMany(() => UserToRole, (userToRole) => userToRole.user)
   userToRoles: UserToRole[];
 
-  @OneToMany(() => Favorite, (favorite) => favorite.userId) favorite: Favorite;
+  @OneToMany(() => Favorite, (favorite) => favorite.user) favorites: Favorite[];
 
   @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
   deletedAt: Date;
