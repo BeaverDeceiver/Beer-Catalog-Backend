@@ -5,6 +5,7 @@ import { Favorite } from '../entities';
 import { getBeerListURL, idsHelper } from '../utils/URL';
 import { map } from 'rxjs/operators';
 import { User } from '../../users/entities';
+import { parseToken } from '../utils/JWT';
 
 @Injectable()
 export class FavoritesService {
@@ -17,7 +18,9 @@ export class FavoritesService {
     private userRepository: Repository<User>,
   ) {}
 
-  async addFavorite(beerId: number, userId: number) {
+  async addFavorite(beerId: number, token: string) {
+    const userId = parseToken(token).id;
+
     const user = await this.userRepository.findOne(userId);
     if (!user) {
       throw new BadRequestException('User not found');
@@ -39,7 +42,9 @@ export class FavoritesService {
     return favorite;
   }
 
-  async getUserFavorites(userId: number) {
+  async getUserFavorites(token: string) {
+    const userId = parseToken(token).id;
+
     const user = await this.userRepository.findOne(userId);
     if (!user) {
       throw new BadRequestException('User not found');
@@ -60,7 +65,9 @@ export class FavoritesService {
       .pipe(map((response) => response.data));
   }
 
-  async removeFavorite(beerId: number, userId: number) {
+  async removeFavorite(beerId: number, token: string) {
+    const userId = parseToken(token).id;
+
     const user = await this.userRepository.findOne(userId);
     if (!user) {
       throw new BadRequestException('User not found');

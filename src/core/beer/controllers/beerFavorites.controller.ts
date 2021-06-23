@@ -1,29 +1,39 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { FavoriteBodyParamsDto } from '../dto/favorites-query-params.dto';
+import {
+  Controller,
+  Delete,
+  Get,
+  Headers,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { HasAccessGuard } from 'src/common/guards/has-access.guard';
+import { JwtAuthGuard } from 'src/core/auth/guards/jwt-auth.guard';
 import { FavoritesService } from '../services/favorites.service';
 
 @Controller('/favorites')
+@UseGuards(JwtAuthGuard, HasAccessGuard)
 export class BeerFavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
   @Post('/:id')
   async addFavorite(
-    @Body() body: FavoriteBodyParamsDto,
+    @Headers('authorization') header: string,
     @Param('id') beerId: number,
   ) {
-    return await this.favoritesService.addFavorite(beerId, body.userId);
+    return await this.favoritesService.addFavorite(beerId, header);
   }
 
   @Delete('/:id')
   async removeFavorite(
-    @Body() body: FavoriteBodyParamsDto,
+    @Headers('authorization') header: string,
     @Param('id') beerId: number,
   ) {
-    return await this.favoritesService.removeFavorite(beerId, body.userId);
+    return await this.favoritesService.removeFavorite(beerId, header);
   }
 
   @Get()
-  async getFavoritesList(@Body() body: FavoriteBodyParamsDto) {
-    return await this.favoritesService.getUserFavorites(body.userId);
+  async getFavoritesList(@Headers('authorization') header: string) {
+    return await this.favoritesService.getUserFavorites(header);
   }
 }
