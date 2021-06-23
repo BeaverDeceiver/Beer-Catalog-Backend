@@ -29,7 +29,7 @@ export class RegistrationService {
       );
 
       if (existingEmail) {
-        throw new BadRequestException('Such email is already used');
+        throw new BadRequestException('Such email is already in use');
       }
 
       const newUser = this.userRepository.create({
