@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { UserToRole } from './user-to-role.entity';
 import { UserInfo } from './user-info.entity';
-import { Favorite } from 'src/core/beer/entities/favorite.entity';
+import { Favorite } from '../../beer/entities';
 
 @Entity({ name: 'users', engine: 'InnoDB' })
 export class User {
