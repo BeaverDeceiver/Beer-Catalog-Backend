@@ -4,15 +4,15 @@ import { BeerService } from '../services/beerList.service';
 
 @Controller()
 export class BeerListController {
-  constructor(private readonly appService: BeerService) {}
+  constructor(private readonly beerService: BeerService) {}
 
   @Get()
   async getBeerList(@Query() query: BeerQueryParamsDto) {
-    return await this.appService.getBeerList(query);
+    return await this.beerService.getBeerList(query);
   }
 
   @Get('/beer/:id')
   async getSingleBeer(@Param('id') id: number) {
-    return await this.appService.getSingleBeer(id);
+    return await this.beerService.getSingleBeer(id);
   }
 }
