@@ -3,6 +3,7 @@ import {
   Column,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -12,15 +13,14 @@ export class Favorite {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false, name: 'user_id' })
-  userId: number;
-
   @Column({ nullable: false, name: 'beer_id' })
   beerId: number;
 
-  @ManyToOne(() => User, (user) => user.id) user: User;
+  @ManyToOne(() => User, (user) => user.favorites)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  user: User;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
   deletedAt: Date;
 }
