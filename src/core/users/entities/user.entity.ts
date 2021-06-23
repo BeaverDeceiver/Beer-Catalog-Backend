@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { UserToRole } from './user-to-role.entity';
 import { UserInfo } from './user-info.entity';
+import { Favorite } from 'src/core/beer/entities/favorite.entity';
 
 @Entity({ name: 'users', engine: 'InnoDB' })
 export class User {
@@ -33,6 +34,8 @@ export class User {
 
   @OneToMany(() => UserToRole, (userToRole) => userToRole.user)
   userToRoles: UserToRole[];
+
+  @OneToMany(() => Favorite, (favorite) => favorite.userId) favorite: Favorite;
 
   @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
   deletedAt: Date;
