@@ -1,8 +1,10 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { BeerQueryParamsDto } from '../dto/beerList-query-params.dto';
 import { BeerService } from '../services/beerList.service';
 
 @Controller()
+@UseGuards(JwtAuthGuard)
 export class BeerListController {
   constructor(private readonly beerService: BeerService) {}
 
