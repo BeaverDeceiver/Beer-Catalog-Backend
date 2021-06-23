@@ -30,7 +30,9 @@ export class FavoritesService {
       where: { beerId, user },
     });
 
-    if (oldFavorite) {
+    if (oldFavorite.length) {
+      console.log(oldFavorite);
+
       return oldFavorite;
     }
 
@@ -38,7 +40,9 @@ export class FavoritesService {
       user: { id: userId },
       beerId: beerId,
     });
+
     await this.favoriteRepository.save(favorite);
+
     return favorite;
   }
 
@@ -56,6 +60,7 @@ export class FavoritesService {
       .select(['favorites.id', 'favorites.beerId'])
       .where('favorites.user.id = :userId', { userId: userId })
       .getMany();
+
     return this.http
       .get(
         getBeerListURL({
