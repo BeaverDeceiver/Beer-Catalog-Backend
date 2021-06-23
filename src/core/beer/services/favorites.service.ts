@@ -1,17 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpService, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { Favorite } from '../entities';
+import { getBeerListURL, idsHelper } from '../utils/URL';
+import { map } from 'rxjs/operators';
+import { User } from '../../users/entities';
 
 @Injectable()
 export class FavoritesService {
   constructor(
+    private http: HttpService,
     private connection: Connection,
     @InjectRepository(Favorite)
     private favoriteRepository: Repository<Favorite>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async addFavorite(beerId: number, userId: number) {
+    const user = await this.userRepository.findOne(userId);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const oldFavorite = await this.favoriteRepository.find({
+      where: { beerId, user },
+    });
+
+    if (oldFavorite) {
+      return oldFavorite;
+    }
+
     const favorite = this.favoriteRepository.create({
       user: { id: userId },
       beerId: beerId,
@@ -21,15 +40,32 @@ export class FavoritesService {
   }
 
   async getUserFavorites(userId: number) {
-    return await this.connection
+    const user = await this.userRepository.findOne(userId);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const favorites = await this.connection
       .getRepository(Favorite)
       .createQueryBuilder('favorites')
       .select(['favorites.id', 'favorites.beerId'])
       .where('favorites.user.id = :userId', { userId: userId })
       .getMany();
+    return this.http
+      .get(
+        getBeerListURL({
+          ids: idsHelper(favorites),
+        }).toString(),
+      )
+      .pipe(map((response) => response.data));
   }
 
   async removeFavorite(beerId: number, userId: number) {
+    const user = await this.userRepository.findOne(userId);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
     const favorite = await this.connection
       .getRepository(Favorite)
       .createQueryBuilder('favorites')
