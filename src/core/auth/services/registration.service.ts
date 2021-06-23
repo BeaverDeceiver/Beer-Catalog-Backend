@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DEFAULT_ROLE } from 'src/common/constants/roles.constants';
 import { User, UserInfo } from 'src/core/users/entities';
@@ -55,7 +51,7 @@ export class RegistrationService {
       return newUser;
     } catch (error) {
       await queryRunner.rollbackTransaction();
-      throw new InternalServerErrorException(error.message);
+      throw new BadRequestException(error.message);
     } finally {
       await queryRunner.release();
     }
