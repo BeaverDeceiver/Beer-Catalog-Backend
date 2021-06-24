@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS "users_info";
 CREATE TABLE "users_info" (
 	"id" SERIAL PRIMARY KEY,
 	"user_id" INTEGER NOT NULL UNIQUE,
-	"dob" DATE,
+	"dob" DATE DEFAULT NULL,
 	"avatar_url" VARCHAR(255),
 	"deleted_at" TIMESTAMP
 );
