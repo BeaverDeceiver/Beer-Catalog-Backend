@@ -5,7 +5,7 @@ import { Favorite } from '../entities';
 import { getBeerListURL, idsHelper } from '../utils/URL';
 import { map } from 'rxjs/operators';
 import { User } from '../../users/entities';
-import { parseToken } from '../utils/JWT';
+import { parseToken } from '../../../common/helpers/JWT';
 
 @Injectable()
 export class FavoritesService {
