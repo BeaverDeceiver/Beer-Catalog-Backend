@@ -49,11 +49,6 @@ export class FavoritesService {
   async getUserFavorites(token: string) {
     const userId = parseToken(token).id;
 
-    const user = await this.userRepository.findOne(userId);
-    if (!user) {
-      throw new BadRequestException('User not found');
-    }
-
     const favorites = await this.connection
       .getRepository(Favorite)
       .createQueryBuilder('favorites')
@@ -72,11 +67,6 @@ export class FavoritesService {
 
   async removeFavorite(beerId: number, token: string) {
     const userId = parseToken(token).id;
-
-    const user = await this.userRepository.findOne(userId);
-    if (!user) {
-      throw new BadRequestException('User not found');
-    }
 
     const favorite = await this.connection
       .getRepository(Favorite)
