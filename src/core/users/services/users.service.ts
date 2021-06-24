@@ -67,7 +67,7 @@ export class UsersService {
 
   async readById(id: number, header = null) {
     const user = await this.userRepository.findOne(id, {
-      select: ['id', 'email'],
+      select: ['id', 'email', 'firstName', 'lastName'],
       relations: ['userInfo', 'userToRoles', 'userToRoles.role'],
     });
     if (!user) {
