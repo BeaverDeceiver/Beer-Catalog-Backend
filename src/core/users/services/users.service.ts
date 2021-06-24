@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { parseToken } from '../../../common/helpers/JWT';
 import { Connection, FindManyOptions, Repository } from 'typeorm';
 import { UserInfo } from '../entities/user-info.entity';
 import { User } from '../entities/user.entity';
@@ -64,7 +65,7 @@ export class UsersService {
     });
   }
 
-  async readById(id: number) {
+  async readById(id: number, header = null) {
     const user = await this.userRepository.findOne(id, {
       select: ['id', 'email'],
       relations: ['userInfo', 'userToRoles', 'userToRoles.role'],
@@ -72,7 +73,12 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-
+    if (header) {
+      const userId = parseToken(header).id;
+      if (user.id === userId) {
+        return { ...user, isOwnProfile: true };
+      }
+    }
     return user;
   }
 

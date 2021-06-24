@@ -6,6 +6,7 @@ import {
   Body,
   HttpCode,
   UseGuards,
+  Headers,
 } from '@nestjs/common';
 import { HasAccessGuard } from 'src/common/guards/has-access.guard';
 import { JwtAuthGuard } from 'src/core/auth/guards/jwt-auth.guard';
@@ -29,7 +30,10 @@ export class UsersController {
   }
 
   @Get(':id')
-  async readById(@Param('id') id: number) {
-    return await this.usersService.readById(id);
+  async readById(
+    @Headers('authorization') header: string,
+    @Param('id') id: number,
+  ) {
+    return await this.usersService.readById(id, header);
   }
 }
