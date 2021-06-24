@@ -4,6 +4,7 @@ import {
   Get,
   Headers,
   Param,
+  ParseIntPipe,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -19,7 +20,7 @@ export class BeerFavoritesController {
   @Post('/:id')
   async addFavorite(
     @Headers('authorization') header: string,
-    @Param('id') beerId: number,
+    @Param('id', ParseIntPipe) beerId: number,
   ) {
     return await this.favoritesService.addFavorite(beerId, header);
   }
@@ -27,7 +28,7 @@ export class BeerFavoritesController {
   @Delete('/:id')
   async removeFavorite(
     @Headers('authorization') header: string,
-    @Param('id') beerId: number,
+    @Param('id', ParseIntPipe) beerId: number,
   ) {
     return await this.favoritesService.removeFavorite(beerId, header);
   }

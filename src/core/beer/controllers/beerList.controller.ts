@@ -1,4 +1,11 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { HasAccessGuard } from '../../../common/guards/has-access.guard';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { BeerQueryParamsDto } from '../dto/beerList-query-params.dto';
@@ -15,7 +22,7 @@ export class BeerListController {
   }
 
   @Get('/beer/:id')
-  async getSingleBeer(@Param('id') id: number) {
+  async getSingleBeer(@Param('id', ParseIntPipe) id: number) {
     return await this.beerService.getSingleBeer(id);
   }
 }

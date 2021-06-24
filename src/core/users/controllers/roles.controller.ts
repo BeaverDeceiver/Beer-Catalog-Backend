@@ -8,6 +8,7 @@ import {
   HttpCode,
   HttpStatus,
   Query,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { HasAccessGuard } from 'src/common/guards/has-access.guard';
 import { JwtAuthGuard } from 'src/core/auth/guards/jwt-auth.guard';
@@ -30,7 +31,7 @@ export class RolesController {
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  async readById(@Param('id') id: number) {
+  async readById(@Param('id', ParseIntPipe) id: number) {
     return await this.rolesService.readById(id);
   }
 

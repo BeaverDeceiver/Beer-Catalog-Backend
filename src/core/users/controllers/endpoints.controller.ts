@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseIntPipe,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -28,7 +29,7 @@ export class EndpointsController {
   }
 
   @Get()
-  async readById(@Param('id') id: number) {
+  async readById(@Param('id', ParseIntPipe) id: number) {
     return await this.endpointsService.readById(id);
   }
 }
