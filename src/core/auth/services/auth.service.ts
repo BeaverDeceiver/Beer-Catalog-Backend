@@ -24,8 +24,7 @@ export class AuthService {
     )[0];
 
     if (user && compare(password, user.password)) {
-      const { password, ...result } = user;
-      return result;
+      return { id: user.id };
     }
 
     return null;
