@@ -3,7 +3,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './services/auth.service';
 import { RegistrationService } from './services/registration.service';
 
-@Controller()
+@Controller('auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
@@ -11,17 +11,20 @@ export class AuthController {
   ) {}
 
   @UseGuards(LocalAuthGuard)
-  @Post('auth/signin')
+  @Post('/signin')
   async login(@Request() req) {
+    console.log('req.user:');
+    console.log(req.user);
+
     return this.authService.login(req.user, req.body.stayLoggedIn);
   }
 
-  @Post('auth/signup')
+  @Post('/signup')
   async signUp(@Body() body) {
     return this.registrationService.signUp(body);
   }
 
-  @Post('auth/refresh')
+  @Post('/refresh')
   async refresh(@Body() body) {
     return this.authService.refresh(body.refreshToken);
   }
