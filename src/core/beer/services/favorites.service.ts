@@ -31,8 +31,6 @@ export class FavoritesService {
     });
 
     if (oldFavorite.length) {
-      console.log(oldFavorite);
-
       return oldFavorite;
     }
 
