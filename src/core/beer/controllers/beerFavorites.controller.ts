@@ -12,7 +12,7 @@ import { HasAccessGuard } from 'src/common/guards/has-access.guard';
 import { JwtAuthGuard } from 'src/core/auth/guards/jwt-auth.guard';
 import { FavoritesService } from '../services/favorites.service';
 
-@Controller('/favorites')
+@Controller('favorites')
 @UseGuards(JwtAuthGuard, HasAccessGuard)
 export class BeerFavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
